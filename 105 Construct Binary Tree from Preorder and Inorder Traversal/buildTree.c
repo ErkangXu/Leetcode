@@ -16,10 +16,10 @@ struct TreeNode* buildTreeHelper(int* preorder, int ps, int pe, int* inorder, in
         i=ie;
         j=pe+1;
     } else if (inorder[is]==root->val) {
-        j=ps+1;
+        // code runs without the first two clauses, but the test cases are mostly boundary corner cases, keeping them make code faster
     } else {
         while(inorder[i]!=root->val) i++;
-        while(1){
+        /*while(1){
             int n=1;
             for(int k=is;k<i;k++) {
                 if(preorder[j]==inorder[k]) {
@@ -30,7 +30,8 @@ struct TreeNode* buildTreeHelper(int* preorder, int ps, int pe, int* inorder, in
             if(n==1) {
                 break;
             } else j++;
-        }
+        }*/ // Don't need to do this, the length of the left subtree can get from i-is
+        j+=i-is;
     }
     root->left=buildTreeHelper(preorder, ps+1, j-1, inorder, is, i-1);
     root->right=buildTreeHelper(preorder, j, pe, inorder, i+1, ie);
