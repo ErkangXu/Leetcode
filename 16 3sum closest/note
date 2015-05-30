@@ -1,0 +1,5 @@
+668ms didn't shrink range didn't break at optimum
+196 didn't shrink but break at optimum
+376 shinrk range but didn't break at optimum
+64 shink and break
+60 shink (without a helper function) and break
