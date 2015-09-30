@@ -1,0 +1,43 @@
+class Solution(object):
+    def solveSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: void Do not return anything, modify board in-place instead.
+        """
+        rowSets=[{'1','2','3','4','5','6','7','8','9'} for i in xrange(9)]
+        colSets=[{'1','2','3','4','5','6','7','8','9'} for i in xrange(9)]
+        squareSets=[[{'1','2','3','4','5','6','7','8','9'} for i in xrange(3)] for j in xrange(3)]
+        for i in xrange(9):
+            for j in xrange(9):
+                ch=board[i][j]
+                if ch!='.':
+                    rowSets[i].remove(ch)
+                    colSets[j].remove(ch)
+                    squareSets[i/3][j/3].remove(ch)
+                
+        print('First part good')
+        counter=0
+        while counter!=81:
+            print(counter)
+            counter=0
+            for i in xrange(9):
+                for j in xrange(9):
+                    if board[i][j]!='.':
+                        counter+=1
+                        continue
+                    else:
+                        choices=rowSets[i].intersection(colSets[j],squareSets[i/3][j/3])
+                        if len(choices)==1:
+                            ch=choices.pop()
+                            rowSets[i].remove(ch)
+                            colSets[j].remove(ch)
+                            squareSets[i/3][j/3].remove(ch)
+                            strList=list(board[i])
+                            strList[j]=ch
+                            board[i]="".join(strList)
+                            counter+=1
+
+inp=["..9748...","7........",".2.1.9...","..7...24.",".64.1.59.",".98...3..","...8.3.2.","........6","...2759.."]
+s=Solution()
+s.solveSudoku(inp)
+print(inp)
